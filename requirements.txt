@@ -1,0 +1,6 @@
+# Kaggle images already include these; needed only for the local smoke test.
+torch
+transformers>=4.51
+numpy
+pandas
+matplotlib

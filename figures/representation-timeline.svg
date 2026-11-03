@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 420" width="1100" height="420" font-family="Arial, Helvetica, sans-serif">
+  <title>How the state representation evolved, and what each version exposed</title>
+  <rect width="1100" height="420" fill="#ffffff"/>
+  <text x="30" y="40" font-size="20" font-weight="bold" fill="#0b0b0b">Seven versions, one lesson each</text>
+  <text x="30" y="66" font-size="14" fill="#52514e">Every fix exposed the next shortcut. Same model (Qwen3-0.6B), same physics, same Kaggle T4.</text>
+  <line x1="60" y1="130" x2="1050" y2="130" stroke="#e6e5e1" stroke-width="3"/>
+
+  <!-- node template: x positions 75, 230, 385, 540, 695, 850, 1005 -->
+  <g font-size="12.5">
+    <!-- v0 -->
+    <circle cx="75" cy="130" r="10" fill="#86b6ef"/>
+    <text x="75" y="105" text-anchor="middle" font-weight="bold" fill="#0b0b0b">v0 · full grid</text>
+    <text x="22" y="170" fill="#0b0b0b" font-weight="bold">Predict the</text><text x="22" y="186" fill="#0b0b0b" font-weight="bold">whole next board</text>
+    <text x="22" y="212" fill="#52514e">8x8 boards: ~100%</text>
+    <text x="22" y="230" fill="#c2410c">9x9 / 10x10: 0%</text>
+    <text x="22" y="248" fill="#52514e">can't write a board</text><text x="22" y="264" fill="#52514e">shape it never saw</text>
+
+    <!-- v1 -->
+    <circle cx="230" cy="130" r="10" fill="#6da7ec"/>
+    <text x="230" y="105" text-anchor="middle" font-weight="bold" fill="#0b0b0b">v1 · JSON objects</text>
+    <text x="177" y="170" fill="#0b0b0b" font-weight="bold">Write only player</text><text x="177" y="186" fill="#0b0b0b" font-weight="bold">+ box coordinates</text>
+    <text x="177" y="212" fill="#52514e">big boards: 81-89%</text>
+    <text x="177" y="230" fill="#c2410c">wall bumps: 78%</text>
+    <text x="177" y="248" fill="#52514e">"is (3,4) a wall?"</text><text x="177" y="264" fill="#52514e">became a grid lookup</text>
+
+    <!-- v2 -->
+    <circle cx="385" cy="130" r="10" fill="#3987e5"/>
+    <text x="385" y="105" text-anchor="middle" font-weight="bold" fill="#0b0b0b">v2 · WALLS + box IDs</text>
+    <text x="332" y="170" fill="#0b0b0b" font-weight="bold">List wall coordinates;</text><text x="332" y="186" fill="#0b0b0b" font-weight="bold">name boxes A, B, C</text>
+    <text x="332" y="212" fill="#52514e">in range: 99% / step</text>
+    <text x="332" y="230" fill="#c2410c">"7 means wall"; box D</text>
+    <text x="332" y="248" fill="#52514e">shortcuts from the</text><text x="332" y="264" fill="#52514e">training data</text>
+
+    <!-- v3 -->
+    <circle cx="540" cy="130" r="10" fill="#2a78d6"/>
+    <text x="540" y="105" text-anchor="middle" font-weight="bold" fill="#0b0b0b">v3 · augmentation</text>
+    <text x="487" y="170" fill="#0b0b0b" font-weight="bold">Random coordinate</text><text x="487" y="186" fill="#0b0b0b" font-weight="bold">offsets + box letters</text>
+    <text x="487" y="212" fill="#52514e">big boards: 82-92%</text>
+    <text x="487" y="230" fill="#c2410c">5 boxes: 10%</text>
+    <text x="487" y="248" fill="#52514e">never wrote more</text><text x="487" y="264" fill="#52514e">than 3 boxes</text>
+
+    <!-- v4 -->
+    <circle cx="695" cy="130" r="12" fill="#1c5cab"/>
+    <text x="695" y="105" text-anchor="middle" font-weight="bold" fill="#0b0b0b">v4 · box list + lines</text>
+    <text x="642" y="170" fill="#0b0b0b" font-weight="bold">BOXES A B C D E;</text><text x="642" y="186" fill="#0b0b0b" font-weight="bold">one line per object</text>
+    <text x="642" y="212" fill="#15803d" font-weight="bold">5 boxes: 98%</text>
+    <text x="642" y="230" fill="#52514e">6 boxes: 80%</text>
+    <text x="642" y="248" fill="#c2410c">still never recovers</text><text x="642" y="264" fill="#52514e">from its own slips</text>
+
+    <!-- v5 -->
+    <circle cx="850" cy="130" r="10" fill="#eb6834"/>
+    <text x="850" y="105" text-anchor="middle" font-weight="bold" fill="#0b0b0b">v5 · recovery (fake)</text>
+    <text x="797" y="170" fill="#0b0b0b" font-weight="bold">Train on injected,</text><text x="797" y="186" fill="#0b0b0b" font-weight="bold">hand-made errors</text>
+    <text x="797" y="212" fill="#52514e">fixes injected: 86-90%</text>
+    <text x="797" y="230" fill="#c2410c">32-step survival: 38-57%</text>
+    <text x="797" y="248" fill="#52514e">stopped trusting</text><text x="797" y="264" fill="#52514e">"nothing changes"</text>
+
+    <!-- v6 -->
+    <circle cx="1005" cy="130" r="10" fill="#1baf7a"/>
+    <text x="1000" y="105" text-anchor="middle" font-weight="bold" fill="#0b0b0b">v6 · recovery (own)</text>
+    <text x="952" y="170" fill="#0b0b0b" font-weight="bold">Train on v4's own</text><text x="952" y="186" fill="#0b0b0b" font-weight="bold">most likely errors</text>
+    <text x="952" y="212" fill="#52514e">fixes injected: 66-83%</text>
+    <text x="952" y="230" fill="#c2410c">32-step survival: 25-52%</text>
+    <text x="952" y="248" fill="#52514e">real recovery</text><text x="952" y="264" fill="#52514e">still ~1-2%</text>
+  </g>
+  <g font-size="12" fill="#52514e">
+    <text x="30" y="320">Each column: the change (bold) → what it fixed → what it exposed (orange). Percentages are exact-state accuracy or 32-step survival on</text>
+    <text x="30" y="338">held-out levels; see the charts for the like-for-like numbers.</text>
+  </g>
+  <line x1="30" y1="360" x2="1070" y2="360" stroke="#e6e5e1"/>
+  <text x="30" y="390" font-size="13" fill="#0b0b0b">Pattern: <tspan font-weight="bold">the model learns exactly the regularities its data and format make easy</tspan> — including the wrong ones.</text>
+</svg>

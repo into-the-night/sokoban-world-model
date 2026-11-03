@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 430" width="1000" height="430" font-family="Arial, Helvetica, sans-serif">
+  <title>Consequences vs strategy: world model, evaluator, search and policy</title>
+  <rect width="1000" height="430" fill="#ffffff"/>
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#52514e"/>
+    </marker>
+  </defs>
+  <text x="30" y="40" font-size="20" font-weight="bold" fill="#0b0b0b">Three jobs that all get called "the model"</text>
+  <text x="30" y="66" font-size="14" fill="#52514e">Only the first one is the world model. The other two turn its predictions into decisions.</text>
+
+  <!-- state -->
+  <rect x="30" y="160" width="130" height="70" rx="10" fill="#f4f3ef"/>
+  <text x="95" y="190" font-size="15" font-weight="bold" fill="#0b0b0b" text-anchor="middle">Board now</text>
+  <text x="95" y="212" font-size="13" fill="#52514e" text-anchor="middle">state s</text>
+
+  <!-- search -->
+  <rect x="215" y="120" width="190" height="150" rx="12" fill="#ffffff" stroke="#8a8984" stroke-width="1.5" stroke-dasharray="0"/>
+  <text x="310" y="150" font-size="15" font-weight="bold" fill="#0b0b0b" text-anchor="middle">Search</text>
+  <text x="310" y="174" font-size="13" fill="#52514e" text-anchor="middle">try UP / DOWN /</text>
+  <text x="310" y="192" font-size="13" fill="#52514e" text-anchor="middle">LEFT / RIGHT, several</text>
+  <text x="310" y="210" font-size="13" fill="#52514e" text-anchor="middle">steps deep; keep</text>
+  <text x="310" y="228" font-size="13" fill="#52514e" text-anchor="middle">the best few boards</text>
+  <text x="310" y="256" font-size="12" fill="#8a8984" text-anchor="middle">(beam search)</text>
+
+  <!-- world model -->
+  <rect x="470" y="95" width="230" height="95" rx="12" fill="#e6f0fb" stroke="#2a78d6" stroke-width="2"/>
+  <text x="585" y="124" font-size="15" font-weight="bold" fill="#0b0b0b" text-anchor="middle">World model: consequences</text>
+  <text x="585" y="150" font-size="16" fill="#0b0b0b" text-anchor="middle" font-style="italic">s' = f(s, a)</text>
+  <text x="585" y="174" font-size="13" fill="#52514e" text-anchor="middle">"if I push left, the board becomes..."</text>
+
+  <!-- evaluator -->
+  <rect x="470" y="215" width="230" height="95" rx="12" fill="#fdeee7" stroke="#eb6834" stroke-width="2"/>
+  <text x="585" y="244" font-size="15" font-weight="bold" fill="#0b0b0b" text-anchor="middle">Evaluator: strategy</text>
+  <text x="585" y="270" font-size="15" fill="#0b0b0b" text-anchor="middle" font-style="italic">V(s') = moves left, or DEAD</text>
+  <text x="585" y="294" font-size="13" fill="#52514e" text-anchor="middle">"is that board any good?"</text>
+
+  <!-- arrows search <-> wm/eval -->
+  <path d="M 405 165 L 466 145" stroke="#52514e" stroke-width="2" fill="none" marker-end="url(#a)"/>
+  <path d="M 405 225 L 466 255" stroke="#52514e" stroke-width="2" fill="none" marker-end="url(#a)"/>
+  <path d="M 160 195 L 211 195" stroke="#52514e" stroke-width="2" fill="none" marker-end="url(#a)"/>
+
+  <!-- action out -->
+  <rect x="790" y="160" width="170" height="70" rx="10" fill="#f4f3ef"/>
+  <text x="875" y="190" font-size="15" font-weight="bold" fill="#0b0b0b" text-anchor="middle">Best action</text>
+  <text x="875" y="212" font-size="13" fill="#52514e" text-anchor="middle">played in the real game</text>
+  <path d="M 700 195 Q 745 195 786 195" stroke="#52514e" stroke-width="2" fill="none" marker-end="url(#a)"/>
+
+  <!-- policy shortcut -->
+  <path d="M 95 230 C 95 395, 875 395, 875 234" stroke="#8a8984" stroke-width="2" fill="none" stroke-dasharray="6 5" marker-end="url(#a)"/>
+  <rect x="380" y="352" width="250" height="56" rx="10" fill="#ffffff" stroke="#8a8984"/>
+  <text x="505" y="376" font-size="15" font-weight="bold" fill="#0b0b0b" text-anchor="middle">Policy: a = π(s)</text>
+  <text x="505" y="397" font-size="13" fill="#52514e" text-anchor="middle">the shortcut: no imagining at all</text>
+</svg>
