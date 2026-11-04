@@ -1,6 +1,6 @@
 # Sokoban World Model: teaching a small LLM to push boxes
 
-Code for the blog post **[“I Taught a Language Model to Push Boxes”](LINK-TO-BLOG-POST)**: a build log of fine-tuning a 0.6B language model to predict Sokoban's consequences, inspired by Meta FAIR's [Code World Model](https://arxiv.org/abs/2510.02387).
+Code for the blog post **[“Can language models learn consequences?”]([LINK-TO-BLOG-POST](https://abhayshukla.substack.com/p/can-language-models-learn-consequences))**: a build log of fine-tuning a 0.6B language model to predict Sokoban's consequences, inspired by Meta FAIR's [Code World Model](https://arxiv.org/abs/2510.02387).
 
 Every notebook is self-contained, generates its own data with an exact Sokoban solver, and runs on a **free Kaggle T4 GPU**.
 
